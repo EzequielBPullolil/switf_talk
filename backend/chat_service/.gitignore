@@ -5,8 +5,8 @@ __pycache__/
 *.pyd
 
 # Ignora los archivos de entorno virtual
-venv/
-env/
+.venv/
+.env
 
 # Ignora los archivos de configuración
 instance/
