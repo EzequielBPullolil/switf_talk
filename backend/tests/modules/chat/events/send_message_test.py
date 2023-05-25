@@ -20,13 +20,11 @@ class TestSendMessageEvent:
         # Clients join chat
         client2.emit('join_chat', {'chat_id': chat_id})
         client1.emit('join_chat', {'chat_id': chat_id})
-
         # Send message to chat
         client1.emit('send_message', {
             'message': 'hi!',
             'chat_id': chat_id
         })
-
         received = client2.get_received()
         assert len(received) > 0
         assert received[0]['name'] == 'new_message'
