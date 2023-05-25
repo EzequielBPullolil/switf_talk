@@ -11,14 +11,22 @@ class TestSendMessageEvent:
         '''
           Check the emission of the 'update_messages' event for all users who are in the chat
         '''
+        chat_id = 'a_chat_id'
         client1 = create_sio()
         client2 = create_sio()
 
         assert client1.is_connected()
         assert client2.is_connected()
+        # Clients join chat
+        client2.emit('join_chat', {'chat_id': chat_id})
+        client1.emit('join_chat', {'chat_id': chat_id})
 
-        client1.emit('send_message', 'hi')
+        # Send message to chat
+        client1.emit('send_message', {
+            'message': 'hi!',
+            'chat_id': chat_id
+        })
 
         received = client2.get_received()
-
         assert len(received) > 0
+        assert received[0]['name'] == 'new_message'
